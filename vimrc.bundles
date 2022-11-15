@@ -1,7 +1,7 @@
 call plug#begin('~/.vim/bundle')
 
 " Define bundles via Github repos
-Plug 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'  " this plugin using for line below file to displpay branch, status ....
 Plug 'tpope/vim-surround'
 Plug 'alvan/vim-closetag'
 Plug 'airblade/vim-gitgutter'
@@ -10,19 +10,34 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ryanoasis/vim-devicons'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'dracula/vim'
-Plug 'sheerun/vim-polyglot'
+
+" Display color schema for syntax
+Plug 'sheerun/vim-polyglot' 
 Plug 'honza/vim-snippets'
 Plug 'ervandew/supertab'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'modille/groovy.vim'
 Plug 'mattn/emmet-vim'
 Plug 'dart-lang/dart-vim-plugin'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-rails'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'vim-ruby/vim-ruby'
+Plug 'jiangmiao/auto-pairs'
+Plug 'APZelos/blamer.nvim'
+Plug '907th/vim-auto-save'
 
+" auto add end block code in ruby
+Plug 'tpope/vim-endwise'
+
+" Handle multi-file find and replace.
+Plug 'mhinz/vim-grepper' 
 call plug#end()
 
 " Local config

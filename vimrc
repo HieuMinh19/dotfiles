@@ -1,34 +1,3 @@
-" Leader
-let mapleader = " "
-
-set backspace=2   " Backspace deletes like most programs in insert mode
-set nobackup
-set nowritebackup
-set noswapfile
-set history=50
-set ruler         " show the cursor position all the time
-set showcmd       " display incomplete commands
-set incsearch     " do incremental searching
-set laststatus=2  " Always display the status line
-set autowrite     " Automatically :write before running commands
-
-set autoindent
-set smartindent
-
-set autoread
-set autowrite
-
-" Softtabs, 2 spaces
-set tabstop=2
-set shiftwidth=2
-set shiftround
-set expandtab
-
-" Make it obvious where 80 characters is
-set textwidth=80
-set colorcolumn=+1
-
-" Display extra whitespace
 " set list listchars=tab:»·,trail:·,nbsp:·
 
 " Use one space, not two, after punctuation.
@@ -38,21 +7,26 @@ set nojoinspaces
 set relativenumber
 set number
 set numberwidth=5
+set colorcolumn=120
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
 
+" Spelling check
+set spell spelllang=en_us
+
 " Autocomplete with dictionary words when spell check is on
 set complete+=kspell
 
 " Always use vertical diffs
-set diffopt+=vertical
+" set diffopt+=vertical
 
 " Copy to clipboard
 set clipboard=unnamed
 
-set lazyredraw
+set encoding=UTF-8
+
 set termguicolors
 
 set background=dark
@@ -104,12 +78,6 @@ let g:is_posix = 1
 vmap <Tab> >gv
 vmap <S-Tab> <gv
 
-" Get off my lawn
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
-
 nnoremap <Leader>\ :vsplit<CR>
 nnoremap <Leader>/ :split<CR>
 
@@ -121,19 +89,43 @@ nmap [ :vertical res -2<CR> " vertical decrease pane by 2
 " Remove highlight
 map <C-h> :nohl<CR>
 
+" Save file
+map <C-s> :w<CR>
+
 " NERD tree configuration
 noremap <C-d> :NERDTreeToggle<CR>
 nnoremap F :NERDTreeFind<CR>
 
 let NERDTreeShowHidden=1
 
+let g:indent_guides_enable_on_vim_startup = 1
+
+" setup for ruby syntax
+let g:ruby_indent_access_modifier_style = 'normal'
+syntax on             " Enable syntax highlighting
+filetype on           " Enable filetype detection
+filetype indent on    " Enable filetype-specific indenting
+filetype plugin on    " Enable filetype-specific plugins
+
+" git lens
+let g:blamer_enabled = 1
+let g:blamer_delay = 500
+
+" auto save
+let g:auto_save = 1  " enable AutoSave on Vim startup
+let g:auto_save_events = ["InsertLeave", "TextChanged"]
+
 " fzf
-noremap ` :Files<CR>
 noremap ; :Buffers<CR>
+" Search by file name
+noremap <C-p> :Files<CR>
 
 " bind \ (backward slash) to grep shortcut
+" search word behind the pointer in all files 
 nnoremap K :Ag <C-R><C-W><CR>
+" search words behind the pointer in current file
 nnoremap <C-k> /<C-R><C-W><CR>
+" search words in all files
 nnoremap \ :Ag<SPACE>
 
 " coc.vim config
@@ -151,7 +143,7 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 nmap <silent> rn <Plug>(coc-rename)
 
-nnoremap R :CocCommand <CR>
+" nnoremap R :CocCommand <CR>
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -208,12 +200,24 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
+" .............................................................................
+" mhinz/vim-grepper
+" .............................................................................
+
+let g:grepper={}
+let g:grepper.tools=["rg"]
+
+" After searching for text, press this mapping to do a project wide find and
+" replace. It's similar to <leader>r except this one applies to all matches
+" across all files instead of just the current file.
+nnoremap <Leader>R
+  \ :let @s='\<'.expand('<cword>').'\>'<CR>
+  \ :Grepper -cword -noprompt<CR>
+  \ :cfdo %s/<C-r>s//g \| update
+  \<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+
 " Auto close tag
-let g:closetag_filenames = '*.html,*.js,*.jsx,*.vue'
+let g:closetag_filenames = '*.html,*.js,*rb,*.jsx,*.vue'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:jsx_ext_required = 0
 
-" Local config
-if filereadable($HOME . "/.vimrc.local")
-  source ~/.vimrc.local
-endif
