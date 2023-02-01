@@ -20,7 +20,10 @@ set spell spelllang=en_us
 set complete+=kspell
 
 " Always use vertical diffs
-" set diffopt+=vertical
+set diffopt+=vertical
+
+" enable mouse mode
+set mouse=a
 
 " Copy to clipboard
 set clipboard=unnamed
