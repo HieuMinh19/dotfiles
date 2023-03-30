@@ -31,6 +31,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'jiangmiao/auto-pairs'
 Plug 'APZelos/blamer.nvim'
 Plug '907th/vim-auto-save'
+Plug 'github/copilot.vim'
 
 " auto add end block code in ruby
 Plug 'tpope/vim-endwise'

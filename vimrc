@@ -177,9 +177,19 @@ let g:lightline = {
       \ 'subseparator': { 'left': '', 'right': '' },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head',
+      \   'filename': 'LightlineFilename',
       \   'cocstatus': 'coc#status'
       \ },
       \ }
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
 
 " Multi select
 let g:multi_cursor_next_key='<C-n>'
