@@ -33,6 +33,14 @@ Plug 'APZelos/blamer.nvim'
 Plug '907th/vim-auto-save'
 Plug 'github/copilot.vim'
 
+" Ruby lannguage Support
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+" Plug 'Bekaboo/dropbar.nvim'
+
 " auto add end block code in ruby
 Plug 'tpope/vim-endwise'
 
