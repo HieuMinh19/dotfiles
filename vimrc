@@ -88,6 +88,8 @@ nmap = :res +2<CR> " increase pane by 2
 nmap - :res -2<CR> " decrease pane by 2
 nmap ] :vertical res +2<CR> " vertical increase pane by 2
 nmap [ :vertical res -2<CR> " vertical decrease pane by 2
+" go to definition of a function
+nmap <silent> gd <Plug>(lcn-definition)
 
 " Remove highlight
 map <C-h> :nohl<CR>
@@ -176,10 +178,20 @@ let g:lightline = {
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
+      \   'gitbranch': 'FugitiveHead',
+      \   'filename': 'LightlineFilename',
       \   'cocstatus': 'coc#status'
       \ },
       \ }
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
 
 " Multi select
 let g:multi_cursor_next_key='<C-n>'
@@ -223,4 +235,14 @@ nnoremap <Leader>R
 let g:closetag_filenames = '*.html,*.js,*rb,*.jsx,*.vue'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:jsx_ext_required = 0
+
+set hidden
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'ruby': ['~/.solargraph', 'stdio'],
+    \ }
 
