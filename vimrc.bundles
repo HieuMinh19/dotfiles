@@ -4,17 +4,20 @@ call plug#begin('~/.vim/bundle')
 Plug 'itchyny/lightline.vim'  " this plugin using for line below file to displpay branch, status ....
 Plug 'tpope/vim-surround'
 Plug 'alvan/vim-closetag'
-Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ryanoasis/vim-devicons'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'dracula/vim'
+
+" Git and related plugins
+Plug 'airblade/vim-gitgutter'
+Plug 'github/copilot.vim'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Display color schema for syntax
 Plug 'sheerun/vim-polyglot' 
@@ -31,7 +34,15 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'jiangmiao/auto-pairs'
 Plug 'APZelos/blamer.nvim'
 Plug '907th/vim-auto-save'
-Plug 'github/copilot.vim'
+
+" toogle terminal in neovim
+Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
+
+lua <<EOF
+
+EOF
+
+
 
 " Ruby lannguage Support
 Plug 'autozimu/LanguageClient-neovim', {

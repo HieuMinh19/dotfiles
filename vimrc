@@ -29,6 +29,7 @@ set mouse=a
 set clipboard=unnamed
 
 set encoding=UTF-8
+set guifont=hack_nerd_font:h21
 
 set termguicolors
 
@@ -47,6 +48,8 @@ endif
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
+
+let mapleader = ","
 
 augroup vimrcEx
   autocmd!

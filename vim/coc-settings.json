@@ -1,4 +1,12 @@
 {
   "tsserver.implicitProjectConfig.experimentalDecorators": true,
-  "snippets.ultisnips.usePythonx": false
+  "snippets.ultisnips.usePythonx": false,
+  "languageserver": {
+    "rubocop": {
+      "command": "rubocop",
+      "args": ["--lsp"],
+      "filetypes": ["ruby"]
+    }
+  }
 }
+
