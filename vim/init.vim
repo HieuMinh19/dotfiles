@@ -1,1 +1,1 @@
-/Users/mfv-computer-0092/Documents/Felix/src/dotfiles/vimrc
+/Users/felix/Documents/setup/dotfiles/vimrc

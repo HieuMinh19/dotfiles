@@ -19,18 +19,25 @@ function install_macos {
 
   if [ "$(is_installed brew)" == "0" ]; then
     echo "Installing Homebrew"
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
   fi
 
   if [ $TERM_PROGRAM != "iTerm.app" ]; then
     echo "Installing iTerm2"
-    brew tap caskroom/cask
-    brew cask install iterm2
+    brew tap homebrew/cask
+    brew cask install iterm2 --cask
   fi
 
   if [ "$(is_installed zsh)" == "0" ]; then
     echo "Installing zsh"
     brew install zsh zsh-completions
+  fi
+
+  if [ ! -d "$ZSH/custom/plugins/zsh-autosuggestions" ]; then
+    echo "Installing zsh-autosuggestions"
+    git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH/custom/plugins/zsh-autosuggestions
   fi
 
   if [ "$(is_installed ag)" == "0" ]; then
@@ -41,6 +48,7 @@ function install_macos {
   if [ "$(is_installed fzf)" == "0" ]; then
     echo "Installing fzf"
     brew install fzf
+    /opt/homebrew/opt/fzf/install
   fi
 
   if [ "$(is_installed tmux)" == "0" ]; then
@@ -69,6 +77,7 @@ function install_macos {
       pip3 install neovim --upgrade
     fi
   fi
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
 function backup {
@@ -94,18 +103,10 @@ function link_dotfiles {
   ln -s $(pwd)/vimrc ~/.vimrc
   ln -s $(pwd)/vimrc.bundles ~/.vimrc.bundles
 
-  echo "Installing oh-my-zsh"
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-  if [ ! -d "$ZSH/custom/plugins/zsh-autosuggestions" ]; then
-    echo "Installing zsh-autosuggestions"
-    git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH/custom/plugins/zsh-autosuggestions
-  fi
-
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
   rm -rf $HOME/.config/nvim/init.vim
   rm -rf $HOME/.config/nvim
+  rm -rf $HOME/.vim/bundle/*
+
   mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
   ln -s $(pwd)/vim $XDG_CONFIG_HOME/nvim
   ln -s $(pwd)/vimrc $XDG_CONFIG_HOME/nvim/init.vim
